@@ -29,10 +29,13 @@ More information on [PetaSAN's website](https://www.petasan.org)
 
 ### Resiliency
 
-First and foremost, the ESXi resilience to access loss and/or inability to read/write IO to the cluster is excellent:
+First and foremost, the ESXi resilience to access loss and/or inability to read/write IO to the cluster is excellent. 
+
+Below is a synthesis of my observations:
+
 - When some paths fail, IOs are automatically routed through other active paths.
-- Shutting down the backend interfaces (on the Ceph cluster side) on an iSCSI gateway has very little influence on the I/O within the test VM (fio). The I/O requests are rejected and take another available path. The inaccessible paths are not marked 'Dead' on the ESXi side. The PetaSAN cluster moves the IPs of the portals (1 LUN = 2+ IPs) to another iSCSI gateway.
-- Shutting down the front-end interfaces (iSCSI on the ESXi side) on an iSCSI gateway has very little influence on the I/O within the test VM. The iSCSI connections are dropped, and the inaccessible paths are marked 'Dead' on the ESXi side. The PetaSAN cluster does not move the portal IP to another iSCSI gateway.
+- Shutting down the backend interfaces (Ceph cluster side) on an iSCSI gateway has very little influence on the I/O within the test VM (fio). The I/O requests are rejected and take another available path. The inaccessible paths are not marked 'Dead' on the ESXi side. The PetaSAN cluster moves the IPs of the portals (1 LUN = 2+ IPs) to another iSCSI gateway.
+- Shutting down the front-end interfaces (ESXi side) on an iSCSI gateway has very little influence on the I/O within the test VM. The iSCSI connections are dropped, and the inaccessible paths are marked 'Dead' on the ESXi side. The PetaSAN cluster does not move the portal IP to another iSCSI gateway.
 - The abrupt shutdown of an iSCSI gateway has little to no influence on the I/O within the VM. The inaccessible paths are marked 'Dead,' and the I/O continues on the other iSCSI gateways. The PetaSAN cluster moves the portal IP to another iSCSI gateway, and the paths become 'active' again. When the crashed gateway comes back online, the portal IP does not return to the revived gateway. It must be reassigned (path reassignment) from the PetaSAN WebUI.
 - At no point does the ESXi lose connectivity to the storage (except when all gateways carrying an access IP to the LUN are stopped).
 - Moving an IP associated with a LUN has little to no influence on the I/O within the VM. The failover is very quick (~2 seconds).
