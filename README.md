@@ -1,8 +1,10 @@
 # Using PetaSAN's iSCSI GWs with an external Ceph cluster
 
+**Preface: This setup is not supported by PetaSAN.**
+
 The purpose of this documentation is to:
 - provide insights regarding the production use of PetaSAN iSCSI GWs with an external Ceph cluster and VMware ESXi clients
-- provide a guide [link to documentation] to set this up.
+- provide a guide [link to documentation] to set up PetaSAN iSCSI GWs with an external Ceph cluster.
 
 # Why choosing PetaSAN's iSCSI implementation?
 
@@ -19,7 +21,9 @@ I had long wanted to test an alternative implementation based on the SUSE kernel
 
 ## PetaSAN's Key Benefits
 
-PetaSAN implements its own Ceph cluster with various protocol access methods (iSCSI, CIFS, NFS, S3, etc.), manages snapshots, and handles replication both within and between PetaSAN clusters - essentially functioning as a proper SAN. All components deployed by PetaSAN are designed, like Ceph, to provide maximum scalability. It's iSCSI implementation, which incorporates code from SUSE's implementation, is particularly impressive in terms of performance and scalability.
+PetaSAN implements its own Ceph cluster with various protocol access methods (iSCSI, CIFS, NFS, S3, etc.), manages snapshots, and handles replication both within and between PetaSAN clusters - essentially functioning as a proper SAN. All components deployed by PetaSAN are designed, like Ceph, to provide maximum scalability. It's iSCSI implementation, which incorporates code from SUSE's implementation along with home made patches, is particularly impressive in terms of performance and scalability.
+
+More information on [PetaSAN's website](https://www.petasan.org)
 
 ## VMware ESXi clients
 
