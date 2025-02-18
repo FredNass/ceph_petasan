@@ -4,7 +4,7 @@
 
 The purpose of this documentation is to:
 - provide insights regarding the production use of PetaSAN iSCSI GWs with an external Ceph cluster and VMware ESXi clients
-- provide a guide [link to documentation] to set up PetaSAN iSCSI GWs with an external Ceph cluster.
+- provide a [guide](docs/INSTALLATION.md) to set up PetaSAN iSCSI GWs with an external Ceph cluster.
 
 # Why choosing PetaSAN's iSCSI implementation?
 
@@ -75,7 +75,7 @@ We started with PetaSAN GWs as virtual machines (on dedicated ESXi) and decided 
 
 ## Setup guide
 
-You'll find steps to install and configure PetaSAN's iSCSI GWs with an external Ceph cluster following this link [link to documentation].
+You'll find steps to install and configure PetaSAN's iSCSI GWs with an external Ceph cluster following this [guide](docs/INSTALLATION.md)
 
 ## Special thanks
 
