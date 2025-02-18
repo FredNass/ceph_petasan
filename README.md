@@ -6,7 +6,7 @@ The purpose of this documentation is to:
 
 # Why choosing PetaSAN's iSCSI implementation?
 
-Going through the points below, you'll find out why we chose PetaSAN's iSCSI implementation for VMware ESXi initiators over Ceph's native iSCSI implementation.
+Going through the points below, you'll find out why we chose PetaSAN's iSCSI implementation over Ceph's native iSCSI implementation for VMware ESXi initiators.
 
 ## Looking in the rearview mirror
 
