@@ -83,4 +83,7 @@ I want to specifically acknowledge Maged Mokhtar (PetaSAN) and his team for thei
 
 ## Support
 
-As of Feb. 2025, **don't** expect official support from PetaSAN (or me) when using PetaSAN iSCSI GWs with an external Ceph cluster in production.
+As of Feb. 2025, **don't expect official support from PetaSAN** when using PetaSAN iSCSI GWs with an external Ceph cluster in production.
+
+If you're looking for some information on how PetaSAN works internaly, you can find some on [PetaSAN's forums](https://www.petasan.org/forums/)
+If you're looking for some information on using PetaSAN with an external Ceph cluster, look in the ceph-user list [archives](https://lists.ceph.io/hyperkitty/list/ceph-users@ceph.io/) and/or [subscribe](https://lists.ceph.io/postorius/lists/ceph-users.ceph.io/) to the ceph-user list and ask questions there.
