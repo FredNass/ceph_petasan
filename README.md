@@ -55,9 +55,9 @@ When a gateway goes offline, its paths (portals) are automatically redistributed
 - When two GWs are operational, all paths to a single RBD image shouldn't be allowed to route through just one GW.
 - PetaSAN should consistently maintain path balance between different GWs. As of July 2023, this isn't the case - when a GW goes down, its paths are redistributed to other GWs, but when it comes back online, those paths don't automatically return to the restored GW, which requires surveillance (monitoring) and manual intervention as of now.
 
-## Setup guide
+## Decision
 
-Based on this positive experience, I decided to replace the native iSCSI implementation of Ceph with PetaSAN's iSCSI GWs in our production environment, running on our external Ceph cluster (600+ OSDs) - even though PetaSAN doesn't support this kind of setup (with external Ceph clusters). We've been running 135 VMs on PetaSAN (~75TB) since August 2023 without any issues so far.
+Based on this positive experience, I decided to replace the native iSCSI implementation of Ceph with PetaSAN's iSCSI GWs in our production environment, running on our external Ceph cluster (600+ OSDs) - even though PetaSAN doesn't support this kind of setup (with external Ceph clusters). We've been running 135 VMs on PetaSAN (~75TB) since August 2023 with great success.
 
 We started with PetaSAN GWs as virtual machines (on dedicated ESXi) and decided to stick with this setup even though we had 2 hardware nodes available for the following reasons:
 
@@ -65,6 +65,8 @@ We started with PetaSAN GWs as virtual machines (on dedicated ESXi) and decided 
 - Moving VMs between hypervisors does not cause any paths unavailability between hypervisors and iSCSI GWs.
 - VMs offer more operational flexibility when it comes to replacing or updating GWs (eg. updates, etc.) withouth the need to buy some new hardware and reduces the risk of impacting prodution.
 - The hardware setup required a 3rd node (with same number of interfaces) that we didn't have to ensure the quorum of PetaSAN operated by Consul.
+
+## Setup guide
 
 You'll find steps to install and configure PetaSAN's iSCSI GWs with an external Ceph cluster following this link [link to documentation].
 
