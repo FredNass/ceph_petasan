@@ -1,0 +1,14 @@
+diff -rup a/opt/petasan/scripts/start_petasan_services.py b/opt/petasan/scripts/start_petasan_services.py
+--- a/opt/petasan/scripts/start_petasan_services.py	2023-07-04 13:49:05.577753540 +0300
++++ b/opt/petasan/scripts/start_petasan_services.py	2023-07-04 13:50:04.341755024 +0300
+@@ -99,8 +99,8 @@ def startup_services(building_stage=Fals
+             logger.info("Starting S3 Service")
+             call_cmd('systemctl start petasan-s3')
+ 
+-        logger.info("Starting Config Upload service")
+-        call_cmd("systemctl restart petasan-config-upload &")
++        #logger.info("Starting Config Upload service")
++        #call_cmd("systemctl restart petasan-config-upload &")
+ 
+         logger.info("Starting petasan-qperf server")
+         call_cmd('systemctl start petasan-qperf')
