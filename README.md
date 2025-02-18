@@ -79,7 +79,7 @@ You'll find steps to install and configure PetaSAN's iSCSI GWs with an external 
 
 ## Special thanks
 
-I want to specifically acknowledge Maged Mokhtar (PetaSAN) and his team for their swift investigation and resolution of various issues I encountered during PetaSAN testing (non-functioning VMware VAAI XCOPY, a kernel memory leak, and LIO queue_depth mismatch). Maged was incredibly accessible and responsive, providing the necessary fixes (2 modules and 1 kernel) at remarkable speed! This level and promptness of support was unprecedented in my experience.
+I want to specifically acknowledge Maged Mokhtar (PetaSAN) and his team for their swift investigation and resolution of various issues I encountered during PetaSAN testing (non-functioning VMware VAAI XCOPY, a kernel memory leak, and LIO queue_depth mismatch). Maged was incredibly accessible and responsive, providing the necessary fixes (2 modules, 1 kernel and 1 patch) at remarkable speed! This level and promptness of support was unprecedented in my experience.
 
 ## Support
 
