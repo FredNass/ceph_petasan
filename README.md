@@ -1,6 +1,6 @@
 # Using PetaSAN's iSCSI GWs with an external Ceph cluster
 
-**Preface: This setup is not supported by PetaSAN.**
+**Preface: This setup is not supported by PetaSAN.org**
 
 The purpose of this documentation is to:
 - provide insights regarding the production use of PetaSAN iSCSI GWs with an external Ceph cluster and VMware ESXi clients
