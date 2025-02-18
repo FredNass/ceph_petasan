@@ -98,7 +98,7 @@ Repeat these steps on the other two nodes of the PetaSAN cluster
 
 ![ps_20.png](../img/ps_20.png)
 
-### Prevent PetaSAN from interfering with the configuration of our external Ceph cluster
+### Prevent PetaSAN from interfering with the external Ceph cluster's configuration
 
 It is necessary to modify a script present on the PetaSAN nodes that's loaded on boot and that updates the Ceph cluster configuration. The following patch handles this configuration.
 
