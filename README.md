@@ -48,9 +48,9 @@ The performance obtained during the fio tests is excellent, and especially, the 
 
 Paths are balanced across all PetaSAN GWs (providing excellent scalability), and the path selection policy (PSP) used for VMware Datastores access is "Round Robin" with path changes at **each** IO, maximizing performance.
 
-I estimate the performance to be roughly 5 to 20 times better than the community iSCSI implementation, even on a single active path. While specific performance figures wouldn't be meaningful here, as they would naturally depend on the number of OSDs and drive types in the underlying Ceph cluster, trust me when I say that PetaSAN's performance is impressive (I initially called it insane), even on a single data IO path.
+I estimate the performance to be roughly 5 to 20 times better than the community iSCSI implementation, even on a single active path. While specific performance figures wouldn't be meaningful here, as they would naturally depend on the number of OSDs and drive types in the underlying Ceph cluster, trust me when I say that PetaSAN's performance is impressive, at least compared to native's Ceph iSCSI implementation, even on a single data IO path.
 
-All operations performed by VMware's iscsi_vmk software initiator - such as device/path rescanning, VMFS operations, formatting, and browsing VMFS datastores - are significantly faster with PetaSAN GWs. These same operations were notably slow with the community iSCSI implementation.
+All operations performed by VMware's iscsi_vmk software initiator - such as device/path rescanning, VMFS formatting, VMFS browsing - are also significantly faster with PetaSAN GWs. These same operations were notably slow with the community iSCSI implementation.
 
 ### Web UI and operations
 
