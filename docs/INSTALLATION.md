@@ -31,31 +31,31 @@ Download the PetaSAN .ISO from [this link](https://www.petasan.org/downloads/)
 
 #### Start the first node on the .ISO image and provide its name and Management IP as shown in the example below
 
-![ps_1.png](img/ps_1.png)
+![ps_1.png](../img/ps_1.png)
 
 #### Choose the only disk on the machine (which must be 64GB or larger in size)
 
-![ps_2.png](img/ps_2.png)
+![ps_2.png](../img/ps_2.png)
 
 #### Choose the language you want
 
-![ps_3.png](img/ps_3.png)
+![ps_3.png](../img/ps_3.png)
 
 #### Let the installation take place
 
-![ps_5.png](img/ps_5.png)
+![ps_5.png](../img/ps_5.png)
 
 #### After restarting the server, the console should display a screen similar to this one
 
-![ps_5b.png](img/ps_5b.png)
+![ps_5b.png](../img/ps_5b.png)
 
 #### Open the PetaSAN 'Deployment Wizard' at the URL indicated on the console and 'Create a new cluster' (for the first node) or Join an existing cluster (for nodes 2 and 3).
 
-![ps_6.png](img/ps_6.png)
+![ps_6.png](../img/ps_6.png)
 
 #### Choose a Cluster Name and a Password
 
-![ps_7.png](img/ps_7.png)
+![ps_7.png](../img/ps_7.png)
 
 #### Network Configuration (bonding)
 
@@ -65,35 +65,35 @@ Specify on which interface to enable Jumbo Frames and enter the value of 9000 in
 
 Click on NIC Bonding / Yes (Advanced), select interfaces eth4 to eth7, select Bond Mode / balance-xor, and set bond0 as the name, then click 'Add Bond' and proceed to the next screen.
 
-![ps_9.png](img/ps_9.png)
+![ps_9.png](../img/ps_9.png)
 
 #### Setup front and back interfaces
 
 Choose 'bond0' as the Backend Interface, iSCSI 1 Interface, and iSCSI 2 Interface.
 
-![ps_10.png](img/ps_10.png)
+![ps_10.png](../img/ps_10.png)
 
 #### On the next screen, uncheck 'Create Default Pools' and choose 'Generic High End Hardware'. In LIO Overrides, increase the queue_depth from 128 to 512.
 
-![ps_11.png](img/ps_11.png)
+![ps_11.png](../img/ps_11.png)
 
 #### Enter the Backend IP of the Node, which will be used for traffic from the GW to Ceph.
 
-![ps_12.png](img/ps_12.png)
+![ps_12.png](../img/ps_12.png)
 
 #### On the next screen, uncheck 'Local Storage Service' to keep only 'iSCSI Target Service'
 
-![ps_13.png](img/ps_13.png)
+![ps_13.png](../img/ps_13.png)
 
 #### After a few seconds, the Deployment Wizard will indicate that the installation of the first node is complete and that you can proceed with the installation of the other two.
 
-![ps_14.png](img/ps_14.png)
+![ps_14.png](../img/ps_14.png)
 
 Repeat these steps on the other two nodes of the PetaSAN cluster
 
 #### The installation on the last node will indicate the cluster's healthy status:
 
-![ps_20.png](img/ps_20.png)
+![ps_20.png](../img/ps_20.png)
 
 ### Prevent PetaSAN from interfering with the configuration of our external Ceph cluster
 
@@ -137,7 +137,7 @@ Next, run a `ceph -s` and/or connect to PetaSAN's Dashboard and check that the s
 
 In PetaSAN Dashboard, open Configuration / iSCSI Settings and fill in the IP range in which PetaSAN will pick up IP addresses to assign to iSCSI portals / Disks. Do not forget to set the vlan id (2211 in this example) if needed.
 
-![ps_21.png](img/ps_21.png)
+![ps_21.png](../img/ps_21.png)
 
 If the wizard asks for a second IP range for iSCSI 2 Subnet, simply add a single IP range (for example 100.74.180.151) in the text area.
 
@@ -163,11 +163,15 @@ cpupower idle-set -D 1
 
 ## FAQ
 
-Q. Where does PetaSAN cluster stores its logs?
-A. Cluster logs are recorded to /opt/petasan/log/PetaSAN.log on PetaSAN nodes.
+- Where does PetaSAN cluster stores its logs?
 
-Q. Why does the installation of the 3rd node never ends?
-A. The most likely issue is that the PetaSAN ceph monitors are unable to establish their quorum due to a clock skew between the three nodes. This can be verified by checking the /var/log/ceph/ceph.log file on all 3 nodes. Nodes' clocks can be adjusted by running the below commands:
+Cluster logs are recorded in file /opt/petasan/log/PetaSAN.log on PetaSAN nodes.
+
+- Why does the installation of the 3rd node never ends?
+
+The most likely issue is that PetaSAN's Ceph monitors (that we won't use) are unable to establish their quorum due to a clock skew between the three nodes.
+This can be verified by checking the /var/log/ceph/ceph.log file on all 3 nodes.
+Nodes' clocks can be adjusted by running the below commands:
 ```
-systemctl stop ntp && ntpdate ntp.univ-lorraine.fr && systemctl start ntp
+systemctl stop ntp && ntpdate pool.ntp.org && systemctl start ntp
 ```
