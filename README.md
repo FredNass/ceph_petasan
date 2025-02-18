@@ -75,7 +75,7 @@ We started with PetaSAN GWs as virtual machines (on dedicated ESXi) and decided 
 
 ## Setup guide
 
-You'll find steps to install and configure PetaSAN's iSCSI GWs with an external Ceph cluster following this [guide](docs/INSTALLATION.md)
+You'll find steps to install and configure PetaSAN's iSCSI GWs with an external Ceph cluster in this [guide](docs/INSTALLATION.md)
 
 ## Special thanks
 
