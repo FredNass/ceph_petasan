@@ -4,6 +4,9 @@ The purpose of this documentation is to describe the installation of a PetaSAN c
 
 We will not delve into the architecture of a PetaSAN cluster here. If you are seeking information on this topic, please refer to the official [PetaSAN documentation](https://www.petasan.org/documentation/).
 
+> [!NOTE]
+> This guide is a work in progress and can for sure be improved. Please feel free to reach out if you see anything worth correcting and/or mentioning in this guide.
+
 ## Cluster nodes and network configuration
 
 Here are the PetaSAN's cluster nodes that we'll use in this example:
