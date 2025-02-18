@@ -45,7 +45,7 @@ I estimate the performance to be roughly 5 to 20 times better than the community
 
 All operations performed by VMware's iscsi_vmk software initiator - such as device/path rescanning, VMFS operations, formatting, and browsing VMFS datastores - are significantly faster with PetaSAN GWs. These same operations were notably slow with the community iSCSI implementation.
 
-## Web UI and operations
+### Web UI and operations
 
 PetaSAN's web UI allows for both automatic and manual path balancing across GWs, and even enables completely clearing paths from a GW for hardware maintenance purposes. All of this works smoothly and transparently, though the execution speed (and WebUI display) could be improved, particularly when dealing with numerous 'Disks'/LUNs at a time. You can also schedule snapshots of 'Disks' (RBD images) and easily provision a datastore from an RBD snapshot to recover a damaged VM - all through the WebUI.
 I've successfully used this feature a few times. While it's also possible to configure replication of a PetaSAN 'Disk' to another PetaSAN cluster's 'Disk', I haven't tested this functionality yet.
@@ -55,9 +55,9 @@ When a gateway goes offline, its paths (portals) are automatically redistributed
 - When two GWs are operational, all paths to a single RBD image shouldn't be allowed to route through just one GW.
 - PetaSAN should consistently maintain path balance between different GWs. As of July 2023, this isn't the case - when a GW goes down, its paths are redistributed to other GWs, but when it comes back online, those paths don't automatically return to the restored GW, which requires surveillance (monitoring) and manual intervention as of now.
 
-## Decision
+## Final Choice
 
-Based on this positive experience, I decided to replace the native iSCSI implementation of Ceph with PetaSAN's iSCSI GWs in our production environment, running on our external Ceph cluster (600+ OSDs) - even though PetaSAN doesn't support this kind of setup (with external Ceph clusters). We've been running 135 VMs on PetaSAN (~75TB) since August 2023 with great success.
+Based on this positive experience, I decided to replace the native iSCSI implementation of Ceph with PetaSAN's iSCSI GWs in our production environment, running on our external Ceph cluster (600+ OSDs) - even though PetaSAN doesn't support this kind of setup (with external Ceph clusters). Since August 2023, we have successfully operated 135 VMs on PetaSAN, totaling approximately 75TB, with excellent performance and reliability.
 
 We started with PetaSAN GWs as virtual machines (on dedicated ESXi) and decided to stick with this setup even though we had 2 hardware nodes available for the following reasons:
 
