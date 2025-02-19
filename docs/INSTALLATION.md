@@ -220,11 +220,9 @@ Reboot the node and verify the application at reboot by running `cpupower monito
   Should I edit it from here? No. Use the Dashboard.
   
 - Where is this configuration stored?
-  On PetaSAN nodes in file `/etc/target/saveconfig.json`
 
-  Should I edit it from here? No. Use the Dashboard.
+  On PetaSAN nodes in file `/etc/target/saveconfig.json`. Should I edit it from here? No. Use the Dashboard to configure exports.
 
 - Any LIO tunings?
-  Yes, in file /opt/petasan/config/tuning/current/lio_tunings
 
-  Should I edit this file? Probaby not. Use the Dashboard.
+  Yes, in file `/opt/petasan/config/tuning/current/lio_tunings`. Can I edit this file? Yes you can, just make sure all nodes use the same settings and reboot each node one after the other (rebalancing the paths between them) after tuning.
