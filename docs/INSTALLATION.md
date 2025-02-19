@@ -168,9 +168,12 @@ If the wizard asks for a second IP range for iSCSI 2 Subnet, simply add a single
 
 ## IMPORTANT TO KNOW
 
-- VMFS uses a default bloc size of 1MB. If you want to align the RBD sector size and VMFS bloc size, you can precreate RBD images with a 1MB sector size in the RBD pool and export them as 'Disks' from the PetaSAN Dashboard.
+- VMFS uses a default block size of 1MB while RBD uses a default object size of 4MB. If you want to align RBD object size with VMFS block size, you can precreate RBD images with a 1MB object size and export these images as 'Disks' from the PetaSAN Dashboard at a later time.
+  ```
+  rbd create rbd/image-00001 --size 10T --object-size 1M --image-format 2 --image-feature layering
+  ```
 
-- To benefit from VMware VAAI extensions like XCOPY offloading that speeds up Storage vMotion tasks, make sure that each PetaSAN Gateway has an active path to both datastore's Disks.
+- To benefit from VMware VAAI extensions like XCOPY offloading that speeds up Storage vMotion tasks, make sure that each PetaSAN Gateway has an active path to all datastore's Disks.
 
 - There's a risk of data corruption when using SUSE based iSCSI implementation that's been described [here](https://croit.io/blog/fixing-data-corruption).
   But... You should be safe with PetaSAN as:
