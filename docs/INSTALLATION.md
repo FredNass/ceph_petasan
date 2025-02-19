@@ -1,4 +1,4 @@
-# Using PetaSAN with an external Ceph cluster
+# Using PetaSAN iSCSI GWs with an external Ceph cluster
 
 The purpose of this documentation is to describe the installation of a PetaSAN cluster using an external Ceph cluster.
 
@@ -172,22 +172,22 @@ If the wizard asks for a second IP range for iSCSI 2 Subnet, simply add a single
 
 - To benefit from VMware VAAI extensions like XCOPY offloading that speeds up Storage vMotion tasks, make sure that each PetaSAN Gateway has an active path to both datastore's Disks.
 
-- There's a risk of data corruption when using SUSE based iSCSI implementation. It's been described [here](https://croit.io/blog/fixing-data-corruption).
+- There's a risk of data corruption when using SUSE based iSCSI implementation that's been described [here](https://croit.io/blog/fixing-data-corruption).
   But... You should be safe with PetaSAN as:
   - PetaSAN < v3.3 won't load RBD images with 'object-map' feature enabled
   - PetaSAN > v3.3 will set the emulate_legacy_capacity flag that - if I understood correctly - prevents data corruption from occuring when 'object-map' feature is enabled on RBD images.
 
 ## TUNING
 
-PetaSAN disabled the use of C-states for performance reasons. If you're using VM nodes, what that means is that your nodes will appear to be consumming 100% CPU time from the hypervisors perspective.
-If your workload does not require that level of performance and you prefer to release the CPU pressure on hypervisors, you may want to allow CPUs to enter idle state (c-state C1) by editing files /etc/rc.local and /opt/petasan/scripts/tuning/tuning.sh as per below :
+PetaSAN disabled the use of C-states for performance reasons. If your PetaSAN nodes are Virtual Machines, they will appear as consumming 100% CPU time from the hypervisor perspective.
+If your workload does not require that level of optimization and you prefer to release CPU pressure on hypervisors, you may want to allow CPUs to enter idle state (c-state C1) by editing files /etc/rc.local and /opt/petasan/scripts/tuning/tuning.sh as per below :
 
 ```
 #Patch to allow PetaSAN nodes CPUs to enter idle mode (C1) and avoid high CPU usage on hypervisors
 #cpupower idle-set -D 0
 cpupower idle-set -D 1
 ```
-Reboot the node. Verify the application at reboot by running `cpupower monitor` and `cat /sys/module/intel_idle/parameters/max_cstate`
+Reboot the node and verify the application at reboot by running `cpupower monitor` and `cat /sys/module/intel_idle/parameters/max_cstate`
 
 ## FAQ
 
