@@ -164,6 +164,8 @@ In PetaSAN Dashboard, open Configuration / iSCSI Settings and fill in the IP ran
 
 If the wizard asks for a second IP range for iSCSI 2 Subnet, simply add a single IP range (for example 100.74.180.151) in the text area.
 
+**That's it! Now all you need is to 'Managed iSCSI Disks / iSCSI Disks / Add iSCSI Disk' in the PetaSAN Dashboard to create and export new LUNs.**
+
 ## IMPORTANT TO KNOW
 
 - VMFS uses a default bloc size of 1MB. If you want to align the RBD sector size and VMFS bloc size, you can precreate RBD images with a 1MB sector size in the RBD pool and export them as 'Disks' from the PetaSAN Dashboard.
@@ -186,6 +188,10 @@ cpupower idle-set -D 1
 
 ## FAQ
 
+- Any particular configuration to set up on VMware side?
+
+  Yes. Please check [this documentation](VMWARE.md).
+  
 - Where does PetaSAN cluster stores its logs?
 
 Cluster logs are recorded in file /opt/petasan/log/PetaSAN.log on PetaSAN nodes.
