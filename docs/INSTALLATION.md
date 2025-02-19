@@ -170,6 +170,8 @@ If the wizard asks for a second IP range for iSCSI 2 Subnet, simply add a single
 
 - VMFS uses a default bloc size of 1MB. If you want to align the RBD sector size and VMFS bloc size, you can precreate RBD images with a 1MB sector size in the RBD pool and export them as 'Disks' from the PetaSAN Dashboard.
 
+- To benefit from VMware VAAI extensions like XCOPY offloading that speeds up Storage vMotion tasks, make sure that each PetaSAN Gateway has an active path to both datastore's Disks.
+
 - There's a risk of data corruption when using SUSE based iSCSI implementation. It's been described [here](https://croit.io/blog/fixing-data-corruption).
   But... You should be safe with PetaSAN as:
   - PetaSAN < v3.3 won't load RBD images with 'object-map' feature enabled
@@ -185,22 +187,41 @@ If your workload does not require that level of performance and you prefer to re
 #cpupower idle-set -D 0
 cpupower idle-set -D 1
 ```
+Reboot the node. Verify the application at reboot by running `cpupower monitor` and `cat /sys/module/intel_idle/parameters/max_cstate`
 
 ## FAQ
 
+- Why does the installation of the 3rd node never ends?
+
+  The most likely issue is that PetaSAN's Ceph monitors (that we won't use) are unable to establish their quorum due to a clock skew between the three nodes.
+  This can be verified by checking the /var/log/ceph/ceph.log file on all 3 nodes.
+  Nodes' clocks can be adjusted by running the below commands:
+  ```
+  systemctl stop ntp && ntpdate pool.ntp.org && systemctl start ntp
+  ```
+  
 - Any particular configuration to set up on VMware side?
 
   Yes. Please check [this documentation](VMWARE.md).
   
 - Where does PetaSAN cluster stores its logs?
 
-Cluster logs are recorded in file /opt/petasan/log/PetaSAN.log on PetaSAN nodes.
+  Cluster logs are recorded in file /opt/petasan/log/PetaSAN.log on PetaSAN nodes.
 
-- Why does the installation of the 3rd node never ends?
+- How can I check LIO target configuration?
+  On PetaSAN node run the below command
+  ```
+  targetcli-fb ls
+  ```
 
-The most likely issue is that PetaSAN's Ceph monitors (that we won't use) are unable to establish their quorum due to a clock skew between the three nodes.
-This can be verified by checking the /var/log/ceph/ceph.log file on all 3 nodes.
-Nodes' clocks can be adjusted by running the below commands:
-```
-systemctl stop ntp && ntpdate pool.ntp.org && systemctl start ntp
-```
+  Should I edit it from here? No. Use the Dashboard.
+  
+- Where is this configuration stored?
+  On PetaSAN nodes in file `/etc/target/saveconfig.json`
+
+  Should I edit it from here? No. Use the Dashboard.
+
+- Any LIO tunings?
+  Yes, in file /opt/petasan/config/tuning/current/lio_tunings
+
+  Should I edit this file? Probaby not. Use the Dashboard.
