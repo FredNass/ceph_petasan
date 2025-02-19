@@ -194,7 +194,15 @@ Reboot the node and verify the application at reboot by running `cpupower monito
 
 ## FAQ
 
-- Why does the installation of the 3rd node never ends?
+- [Why does the installation of the 3rd node never ends?](#Why-does-the-installation-of-the-3rd-node-never-ends)
+- [Any particular configuration to set up on VMware side?](#Any-particular-configuration-to-set-up-on-VMware-side)
+- [Where does PetaSAN cluster stores its logs?](#Where-does-PetaSAN-cluster-stores-its-logs)
+- [How can I check LIO target configuration?](#How-can-I-check-LIO-target-configuration)
+- [Where is LIO configuration stored?](#Where-is-LIO-configuration-stored)
+- [Any LIO tunings I should be aware of?](#Any-LIO-tunings-I-should-be-aware-of)
+
+<a name="Why-does-the-installation-of-the-3rd-node-never-ends"></a>
+### Why does the installation of the 3rd node never ends?
 
   The most likely issue is that PetaSAN's Ceph monitors (that we won't use) are unable to establish their quorum due to a clock skew between the three nodes.
   This can be verified by checking the /var/log/ceph/ceph.log file on all 3 nodes.
@@ -202,27 +210,33 @@ Reboot the node and verify the application at reboot by running `cpupower monito
   ```
   systemctl stop ntp && ntpdate pool.ntp.org && systemctl start ntp
   ```
-  
-- Any particular configuration to set up on VMware side?
 
-  Yes. Please check [this documentation](VMWARE.md).
-  
-- Where does PetaSAN cluster stores its logs?
+<a name="Any-particular-configuration-to-set-up-on-VMware-side"></a>
+### Any particular configuration to set up on VMware side?
 
-  Cluster logs are recorded in file /opt/petasan/log/PetaSAN.log on PetaSAN nodes.
+Yes. Please check [this documentation](VMWARE.md).
 
-- How can I check LIO target configuration?
-  On PetaSAN node run the below command
-  ```
-  targetcli-fb ls
-  ```
+<a name="Where-does-PetaSAN-cluster-stores-its-logs"></a>
+### Where does PetaSAN cluster stores its logs?
 
-  Should I edit it from here? No. Use the Dashboard.
-  
-- Where is this configuration stored?
+Cluster logs are recorded in file /opt/petasan/log/PetaSAN.log on PetaSAN nodes.
 
-  On PetaSAN nodes in file `/etc/target/saveconfig.json`. Should I edit it from here? No. Use the Dashboard to configure exports.
+<a name="How-can-I-check-LIO-configuration"></a>
+### How can I check LIO configuration?
 
-- Any LIO tunings?
+On PetaSAN node run the below command
+```
+targetcli-fb ls
+```
 
-  Yes, in file `/opt/petasan/config/tuning/current/lio_tunings`. Can I edit this file? Yes you can, just make sure all nodes use the same settings and reboot each node one after the other (rebalancing the paths between them) after tuning.
+Should I edit it from here? No. Use PetaSAN's Dashboard.
+
+<a name="Where-is-LIO-configuration-stored"></a>
+### Where is LIO configuration stored?
+
+On PetaSAN nodes in file `/etc/target/saveconfig.json`. Should I edit it from here? No. Use the Dashboard to configure exports.
+
+<a name="Any-LIO-tunings-I-should-be-aware-of"></a>
+### Any LIO tunings I should be aware of?
+
+Yes, in file `/opt/petasan/config/tuning/current/lio_tunings`. Can I edit this file? Yes you can, just make sure all nodes use the same settings and reboot each node one after the other (rebalancing the paths between them) after tuning this file.
