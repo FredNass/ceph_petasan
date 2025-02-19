@@ -130,19 +130,15 @@ Increasing LUN Size is as simple as adjusting the 'Disk' size in PetaSAN Dashboa
 ## Useful Links
 
 ### ALUA Configuration:
-- https://docs.vmware.com/fr/VMware-vSphere/6.7/vsphere-esxi-vcenter-server-67-storage-guide.pdf.pdf
 - https://kb.vmware.com/s/article/1022030?lang=en_US#q=ALUA
 - https://cormachogan.com/2015/02/19/vsphere-6-0-storage-features-part-6-action_onretryerrors/
-- https://pubs.vmware.com/vsphere-6-5/index.jsp?topic=%2Fcom.vmware.vcli.examples.doc_50%2Fcli_advanced_storage.8.2.html
 - http://virtualguido.blogspot.com/2016/09/vmware-esxi-claim-rules-unleashed.html
-- https://labs.vmware.com/vmtj/redefining-esxi-io-multipathing-in-the-flash-era
 
 ### iSCSI Qdepth for LIO target, ESXi, and vSCSI controllers:
 vSCSI: http://virtualguido.blogspot.com/2016/08/vmware-scsi-controller-options.html
 
 Qlogic:
-- http://forums.qlogic.com/SupportCenter/servlet/fileField?id=0BE80000000Casv
-- https://datacore.custhelp.com/app/answers/detail/a_id/1514/~/what-value-should-hosts-with-fibre-channel-hbas-use-for-the-execution-throttle/session/L2F2LzEvdGltZS8xNTYwNDU1MTU2L2dlbi8xNTYwNDU1MTU2L3NpZC9mVUhnZENpMlF1N2plN1pHJTdFMnBKQUF0dkgxb0RIZHpPZjdNZWZsc0xlakxpeHNNN1AzSlpEbF9vSXloTTJDTXU3eDRNdzB6Nl9JQVlXdDN6NVdQMWdoZEZPejRaSTBxYVd0N2VxRUM2VmtpY2ZUbXlyZ2pyeDJxZyUyMSUyMQ==
+- https://datacore.custhelp.com/app/answers/detail/a_id/1514/~/what-value-should-hosts-with-fibre-channel-hbas-use-for-the-execution-throttle/session/
 - https://cormachogan.com/2014/01/09/qlogic-execution-throttle-feature-concerns/
 
 VMware:
@@ -155,5 +151,4 @@ Storage Performance Control:
 - http://vmconsole.blogspot.com/2014/09/esx-commands-for-checking-storage-and.html
 
 General:
-- http://vnews.fr/deep-dive-vmware-esxi-io-scheduler-queue-depth-2/ [in French]
 - https://www.settlersoman.com/what-is-storage-queue-depth-qd-and-why-is-it-so-important/
