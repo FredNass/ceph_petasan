@@ -110,15 +110,29 @@ patch -p1 -d / < disable-config-upload-onboot.patch
 
 ## Connecting PetaSAN to the external Ceph cluster
 
-#### Route all Ceph trafic through the right interface (bond0.2206 in this example)
+During the installation, PetaSAN deployed Consul Service Mesh to operate its services and a minimalistic ceph cluster made of 3 MONs.
 
-On every PetaSAN node, create a file `/opt/petasan/scripts/custom/post_start_network.sh` to route all Ceph trafic through the right interface (adjust values) with the below content:
+We will not use this embedded Ceph cluster, but it's still interesting to check its default settings, would you apply some of them to your external cluster to satisfy PetaSAN expectations.
+To check the status of this embedded cluster and its settings, you can login via SSH to any PetaSAN nodes and run `ceph -s` and `ceph config dump`.
 
-`ip route add 100.74.100.0/24 via 100.74.189.254 dev bond0.2206`
+Some settings might catch your attention like `osd_heartbeat_grace=20` and `osd_heartbeat_interval=5` that were recommended in the iSCSI section of Red Hat Ceph Storage Block Device Guide.
 
-## Copy `ceph.conf` and `ceph.client.admin.keyring` files from your external cluster to the `/etc/ceph` directory of each PetaSAN nodes
+Connecting PetaSAN to an external cluster is as simple as replacing `ceph.conf` and `ceph.client.admin.keyring` files in `/etc/ceph` directory of each PetaSAN nodes.
+Before doing so, let's backup those files.
 
-#### Copy `ceph.conf` file to /etc/ceph :
+```
+rsync -avh /etc/ceph/{ceph.client.admin.keyring,ceph.conf} /etc/ceph/embedded-cluster/
+```
+
+Now copy `ceph.conf` and `ceph.client.admin.keyring` files from your external cluster to the `/etc/ceph` directory of each PetaSAN nodes
+
+```
+rsync -avh /tmp/{ceph.client.admin.keyring,ceph.conf} root@ps-node-hw-01:/etc/ceph/
+rsync -avh /tmp/{ceph.client.admin.keyring,ceph.conf} root@ps-node-hw-02:/etc/ceph/
+rsync -avh /tmp/{ceph.client.admin.keyring,ceph.conf} root@ps-node-hw-03:/etc/ceph/
+```
+
+#### example of `ceph.conf` file
 ```
 [global]
 fsid = abcd1ef2-abcd-1ef2-abcd-1ef2abcd1ef2
@@ -128,13 +142,19 @@ public network = 100.74.100.0/24
 cluster network = 100.74.200.0/24
 ```
 
-#### Copy `ceph.client.admin.keyring` file to /etc/ceph
+#### example of `ceph.client.admin.keyring` file
 ```
 [client.admin]
         key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==
 ```
 
-Next, run a `ceph -s` and/or connect to PetaSAN's Dashboard and check that the state and the metrics from your external Ceph cluster are properly displayed in the Dashboard (URL: https://<ip_or_fdqn_of_a_petasan_node>)
+Next, run a `ceph -s` and login to the PetaSAN's Dashboard and check that the state and the metrics from your external Ceph cluster are properly displayed in the Dashboard (URL: https://<ip_or_fdqn_of_a_petasan_node>)
+
+#### Route all Ceph trafic through the right interface (bond0.2206 in this example)
+
+On every PetaSAN node, create a file `/opt/petasan/scripts/custom/post_start_network.sh` to route all Ceph trafic through the right interface (adjust values) with the below content:
+
+`ip route add 100.74.100.0/24 via 100.74.189.254 dev bond0.2206`
 
 ## Configuring iSCSI portals
 
