@@ -11,11 +11,11 @@ We will not delve into the architecture of a PetaSAN cluster here. If you are se
 
 Here are the PetaSAN's cluster nodes that we'll use in this example:
 
-| Node | location|	type |	Management IP | iSCSI portals (vlan 2211) | external IP (Ceph side) |
+| Node | Location|	Type |	Management IP | Backend IP (Ceph side) | iSCSI portals (ESXi side) |
 |------|---------|-------|----------------|---------------------------|-------------------------|
-|ps-node-hw-01.foo.bar|rack1|VM|100.74.128.201|100.74.180.101 to 100.74.180.150|100.74.189.251|
-|ps-node-hw-02.foo.bar|rack2|VM|100.74.130.202|100.74.180.101 to 100.74.180.150|100.74.189.250|
-|ps-node-hw-03.foo.bar|rack3|VM|100.74.128.203|100.74.180.101 to 100.74.180.150|100.74.189.249|
+|ps-node-hw-01.foo.bar|rack1|VM|100.74.128.201|100.74.189.251|100.74.180.101 to 100.74.180.150|
+|ps-node-hw-02.foo.bar|rack2|VM|100.74.130.202|100.74.189.250|100.74.180.101 to 100.74.180.150|
+|ps-node-hw-03.foo.bar|rack3|VM|100.74.128.203|100.74.189.249|100.74.180.101 to 100.74.180.150|
 
 PetaSAN will dynamically assign IPs to portals attached to 'Disks' by picking up available IPs in the range 100.74.180.101 to 100.74.180.150.
 
