@@ -177,8 +177,8 @@ If the wizard asks for a second IP range for iSCSI 2 Subnet, simply add a single
 
 - There's a risk of data corruption when using SUSE based iSCSI implementation that's been described [here](https://croit.io/blog/fixing-data-corruption).
   But... You should be safe with PetaSAN as:
-  - PetaSAN < v3.3 won't load RBD images with 'object-map' feature enabled
-  - PetaSAN > v3.3 will set the emulate_legacy_capacity flag that - if I understood correctly - prevents data corruption from occuring when 'object-map' feature is enabled on RBD images.
+  - PetaSAN < v3.3 won't load RBD images with 'object-map' feature enabled, avoiding this problem.
+  - PetaSAN >= v3.3 will correctly set the emulate_legacy_capacity flag if 'object-map' feature is enabled.
 
 ## TUNING
 
